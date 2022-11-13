@@ -38,67 +38,64 @@ public class SecurityFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) {
+        log.info("In request filter, validating the token of the request");
+        String authHeader = containerRequestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+        String applicatonName = containerRequestContext.getHeaderString(HEADER_NAME_APPLICATION_NAME);
+        String tokenExpiry = containerRequestContext.getHeaderString(HEADER_NUMBER_TOKEN_EXPIRY);
+        String method = containerRequestContext.getMethod();
 
-        if (containerRequestContext.getUriInfo().getPath().contains("perfect-number")) {
-            String authHeader = containerRequestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-            String applicatonName = containerRequestContext.getHeaderString(HEADER_NAME_APPLICATION_NAME);
-            String tokenExpiry = containerRequestContext.getHeaderString(HEADER_NUMBER_TOKEN_EXPIRY);
-            String method = containerRequestContext.getMethod();
-
-            if (Strings.isNullOrEmpty(authHeader)) {
-                containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(INVALID_TOKEN_ERROR_MESSAGE)
-                        .build());
-            }
-
-            String cleanAuthHeader = getTokenFromAuthorizationHeader(authHeader);
-            if (Strings.isNullOrEmpty(tokenExpiry)) {
-                containerRequestContext.abortWith(Response.status(Response.Status.BAD_REQUEST)
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(TOKEN_EXPIRY_IS_MISSING)
-                        .build());
-            }
-            Instant validTo = null;
-            try {
-                validTo = Instant.parse(tokenExpiry);
-            } catch (DateTimeParseException e) {
-                containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(INVALID_TOKEN_EXPIRY_TIME)
-                        .build());
-            }
-
-            if (validTo.isAfter(Instant.now().plusSeconds(HmacData.MAX_EXPIRY_IN_SECONDS)) || validTo.isBefore(Instant.now())) {
-                containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED))
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(TOKEN_EXPIRED)
-                        .build());
-            }
-
-            if (Strings.isNullOrEmpty(applicatonName)) {
-                containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(INVALID_APPLICATION_MISSING)
-                        .build());
-            }
-
-            String key = TOKEN_KEY;
-            try {
-                String hmac = HmacGenerator.createHmacFromData(applicatonName, method, key, validTo);
-                if (!hmac.equals(cleanAuthHeader)) {
-                    containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                            .type(MediaType.APPLICATION_JSON_TYPE)
-                            .entity(AUTHENTICATION_FAILED)
-                            .build());
-                }
-            } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-                containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                        .type(MediaType.APPLICATION_JSON_TYPE)
-                        .entity(e.getMessage())
-                        .build());
-            }
+        if (Strings.isNullOrEmpty(authHeader)) {
+            containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(INVALID_TOKEN_ERROR_MESSAGE)
+                    .build());
         }
-        return;
+
+        String cleanAuthHeader = getTokenFromAuthorizationHeader(authHeader);
+        if (Strings.isNullOrEmpty(tokenExpiry)) {
+            containerRequestContext.abortWith(Response.status(Response.Status.BAD_REQUEST)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(TOKEN_EXPIRY_IS_MISSING)
+                    .build());
+        }
+        Instant validTo = null;
+        try {
+            validTo = Instant.parse(tokenExpiry);
+        } catch (DateTimeParseException e) {
+            containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(INVALID_TOKEN_EXPIRY_TIME)
+                    .build());
+        }
+
+        if (validTo.isAfter(Instant.now().plusSeconds(HmacData.MAX_EXPIRY_IN_SECONDS)) || validTo.isBefore(Instant.now())) {
+            containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED))
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(TOKEN_EXPIRED)
+                    .build());
+        }
+
+        if (Strings.isNullOrEmpty(applicatonName)) {
+            containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(INVALID_APPLICATION_MISSING)
+                    .build());
+        }
+
+        String key = TOKEN_KEY;
+        try {
+            String hmac = HmacGenerator.createHmacFromData(applicatonName, method, key, validTo);
+            if (!hmac.equals(cleanAuthHeader)) {
+                containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                        .type(MediaType.APPLICATION_JSON_TYPE)
+                        .entity(AUTHENTICATION_FAILED)
+                        .build());
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(e.getMessage())
+                    .build());
+        }
     }
 }

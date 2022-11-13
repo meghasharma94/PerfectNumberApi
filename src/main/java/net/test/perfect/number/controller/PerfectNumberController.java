@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/perfect-number")
+@Path("/perfect-numbers")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PerfectNumberController {
@@ -71,6 +71,4 @@ public class PerfectNumberController {
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
-
-
 }
