@@ -15,7 +15,7 @@ import javax.ws.rs.core.Context;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@ApplicationPath("/")
+@ApplicationPath("")
 public class RestApplication extends Application {
     public RestApplication(@Context ServletConfig servletConfig) {
         super();

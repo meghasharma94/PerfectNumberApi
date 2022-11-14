@@ -1,10 +1,10 @@
-while getopts k:a::o: option
+while getopts k:a:o: option
 do
  case "${option}"
   in
-  k) KEY=${OPTARG};
-  a) APPLICATION=${OPTARG};
-  o) HTTPMETHOD=${OPTARG};
+  k) KEY=${OPTARG};;
+  a) APPLICATION=${OPTARG};;
+  o) HTTPMETHOD=${OPTARG};;
  esac
 done
 

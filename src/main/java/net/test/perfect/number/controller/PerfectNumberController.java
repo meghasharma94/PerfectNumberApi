@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/perfect-numbers")
+@Path("/perfect-number")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PerfectNumberController {
@@ -32,7 +32,7 @@ public class PerfectNumberController {
                     @ApiResponse(
                             responseCode = "400",
                             description = "Bad input")})
-    public Response isPerfectNumber(@PathParam("number") Integer number) {
+    public Response checkForPerfectNumber(@PathParam("number") Integer number) {
         if (number == null || Integer.signum(number) < 0) {
             throw new InvalidRequestException("Invalid requested parameters");
         }
@@ -45,7 +45,7 @@ public class PerfectNumberController {
 
 
     @GET
-    @Path("/listAll")
+    @Path("/listAllPerfectNumbers")
     @Operation(summary = "This api lists all the perfect number in the given range",
             tags = {"perfectNumber"},
             responses = {

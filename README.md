@@ -1,9 +1,10 @@
 # perfect-number-api
 
 ## Run Locally 
-To run this api locally run 'mvn jetty:run'. Currently it is configured at port 8080.
-It can be changed in pom.xml for different port
 
+1) Download/clone the project
+2) Import in Eclipse
+3) Run Configuration -> Goals "clean install jetty:run"
 ```` bash 
 ./callTokenGenerator.sh -k<key> -a<applicationName> -o<HttpMethod>
  example --- ./callTokenGenerator.sh -k abc -a test -o GET
@@ -19,18 +20,16 @@ and should be moved to keypass.
 
 All the given api's requires a valid token with headers as
 
-1) Authorization
-2) Token-Expiry
-3) Application-Name
+1) Authorization Bearer **************************************
+2) Token-Expiry 2022-11-11T18:03:49Z
+3) Application-Name ******
+ 
 
-The 
-
-** API to check if the number is perfect number or not 
-
+** API to check if the number is perfect number or not
+http://localhost:8081/api/perfect-number/validate/10
 
 ** API to list the perfect number list for the given range
-
-
+http://localhost:8081/api/perfect-number/listAllPerfectNumbers?from=1&to=20
 
 The tech stack for this api is 
 
