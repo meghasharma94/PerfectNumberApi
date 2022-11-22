@@ -1,3 +1,5 @@
+#!/bin/bash
+
 while getopts k:a:o: option
 do
  case "${option}"
@@ -13,9 +15,11 @@ TOKENEXPIRY=$(/bin/date -u +"%Y-%m-%dT%H:%M:%SZ" --date="@$((secs + 300))")
 
 HMACDATA=$APPLICATION$HTTPMETHOD$TOKENEXPIRY
 
+echo "HMACDATA: $HMACDATA"
+
 HMACTOKEN=$(echo -n $HMACDATA | /usr/bin/openssl sha256 -hmac $KEY)
 BEARERTOKEN=${HMACTOKEN/(stdin)=/Bearer}
 
-echo "$BEARERTOKEN"
+echo "BEARERTOKEN: $BEARERTOKEN"
 
-echo "$TOKENEXPIRY"
+echo "TOKENEXPIRY: $TOKENEXPIRY"

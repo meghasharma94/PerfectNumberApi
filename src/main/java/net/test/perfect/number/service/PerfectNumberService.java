@@ -28,18 +28,10 @@ public class PerfectNumberService {
     }
 
     private boolean isNumberPerfect(int number) {
-        int sum = 1;
-        if (number < 1) {
-            return false;
-        }
-        for (int i = 2; i <= Math.sqrt(number); i++) {
-            if (number % i == 0)
-                sum += i + number / i;
+        return number == IntStream.rangeClosed(2, (int) Math.sqrt(number)).
+                filter(i -> number % i == 0).
+                flatMap(i -> IntStream.of(i, number / i)).sum() + 1;
 
-            if (sum > number)
-                return false;
-        }
-        return sum == number;
     }
 
     private Optional<List<Integer>> calculatePerfectNumbersList(int start, int end) {
