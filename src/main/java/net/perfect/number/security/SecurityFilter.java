@@ -1,4 +1,4 @@
-package net.test.perfect.number.security;
+package net.perfect.number.security;
 
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;

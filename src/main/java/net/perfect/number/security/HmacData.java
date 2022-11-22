@@ -1,4 +1,4 @@
-package net.test.perfect.number.security;
+package net.perfect.number.security;
 
 import lombok.Builder;
 import lombok.Data;

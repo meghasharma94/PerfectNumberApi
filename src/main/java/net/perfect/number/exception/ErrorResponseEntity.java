@@ -1,4 +1,4 @@
-package net.test.perfect.number.exception;
+package net.perfect.number.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

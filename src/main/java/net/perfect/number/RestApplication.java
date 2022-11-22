@@ -1,4 +1,4 @@
-package net.test.perfect.number;
+package net.perfect.number;
 
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
@@ -34,7 +34,7 @@ public class RestApplication extends Application {
         SwaggerConfiguration oasConfig = new SwaggerConfiguration()
                 .openAPI(oas)
                 .prettyPrint(true)
-                .resourcePackages(Stream.of("net.test.perfect.number").collect(Collectors.toSet()));
+                .resourcePackages(Stream.of("net.perfect.number").collect(Collectors.toSet()));
 
         try {
             new JaxrsOpenApiContextBuilder()

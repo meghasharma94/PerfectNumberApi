@@ -1,6 +1,6 @@
-package net.test.perfect.number.service;
+package net.perfect.number.service;
 
-import net.test.perfect.number.exception.InvalidRequestException;
+import net.perfect.number.exception.InvalidRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

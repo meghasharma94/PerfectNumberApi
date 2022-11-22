@@ -1,4 +1,4 @@
-package net.test.perfect.number.exception;
+package net.perfect.number.exception;
 
 public class UnauthorizedException extends PerfectNumberException{
     public UnauthorizedException(String message) {

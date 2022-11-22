@@ -1,8 +1,8 @@
-package net.test.perfect.number.service;
+package net.perfect.number.service;
 
 
 import lombok.extern.slf4j.Slf4j;
-import net.test.perfect.number.exception.InvalidRequestException;
+import net.perfect.number.exception.InvalidRequestException;
 
 import java.util.Collections;
 import java.util.List;

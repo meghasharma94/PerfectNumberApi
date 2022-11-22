@@ -1,6 +1,6 @@
-package net.test.perfect.number.security;
+package net.perfect.number.security;
 
-import net.test.perfect.number.exception.PerfectNumberException;
+import net.perfect.number.exception.PerfectNumberException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

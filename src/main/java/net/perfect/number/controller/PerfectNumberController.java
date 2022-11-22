@@ -1,10 +1,10 @@
-package net.test.perfect.number.controller;
+package net.perfect.number.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import net.test.perfect.number.exception.InvalidRequestException;
-import net.test.perfect.number.service.PerfectNumberService;
+import net.perfect.number.exception.InvalidRequestException;
+import net.perfect.number.service.PerfectNumberService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

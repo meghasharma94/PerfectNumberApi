@@ -1,4 +1,4 @@
-package net.test.perfect.number.exception;
+package net.perfect.number.exception;
 
 public class InvalidRequestException extends PerfectNumberException{
     public InvalidRequestException(String message) {

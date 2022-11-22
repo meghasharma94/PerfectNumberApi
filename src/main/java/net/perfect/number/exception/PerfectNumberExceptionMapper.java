@@ -1,4 +1,4 @@
-package net.test.perfect.number.exception;
+package net.perfect.number.exception;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
